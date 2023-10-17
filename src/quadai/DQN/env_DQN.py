@@ -33,10 +33,10 @@ class droneEnv(gym.Env):
         self.screen = pygame.display.set_mode((800, 800))
         self.FramePerSec = pygame.time.Clock()
 
-        self.player = pygame.image.load(os.path.join("assets/sprites/drone_old.png"))
+        self.player = pygame.image.load(os.path.join("src/quadai/assets/sprites/drone_old.png"))
         self.player.convert()
 
-        self.target = pygame.image.load(os.path.join("assets/sprites/target_old.png"))
+        self.target = pygame.image.load(os.path.join("src/quadai/assets/sprites/drone_old.png"))
         self.target.convert()
 
         pygame.font.init()

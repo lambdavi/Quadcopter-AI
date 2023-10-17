@@ -12,7 +12,7 @@ import os
 import pygame
 from pygame.locals import *
 
-from stable_baselines3 import SAC
+from stable_baselines3 import SAC, DDPG
 
 from quadai.PID.controller_PID import PID
 
@@ -127,6 +127,32 @@ class SACPlayer(Player):
         super().__init__()
 
         self.action_value = SAC.load(self.path)
+
+    def act(self, obs):
+        action, _ = self.action_value.predict(obs)
+        (action0, action1) = (action[0], action[1])
+
+        thruster_left = self.thruster_mean
+        thruster_right = self.thruster_mean
+
+        thruster_left += action0 * self.thruster_amplitude
+        thruster_right += action0 * self.thruster_amplitude
+        thruster_left += action1 * self.diff_amplitude
+        thruster_right -= action1 * self.diff_amplitude
+        return thruster_left, thruster_right
+
+class DDPGPlayer(Player):
+    def __init__(self):
+        self.name = "DDPG"
+        self.alpha = 50
+        self.thruster_amplitude = 0.04
+        self.diff_amplitude = 0.003
+        model_path = ""
+        model_path = os.path.join(os.path.dirname(__file__), model_path)
+        self.path = model_path
+        super().__init__()
+
+        self.action_value = DDPG.load(self.path)
 
     def act(self, obs):
         action, _ = self.action_value.predict(obs)
