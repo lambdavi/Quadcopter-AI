@@ -27,7 +27,7 @@ env = droneEnv(False, False)
 env = Monitor(env, log_dir)
 
 # Create SAC agent
-model = DDPG("MlpPolicy", env, verbose=1, tensorboard_log=log_dir, learning_rate=0.0005)
+model = DDPG("MlpPolicy", env, verbose=1, tensorboard_log=log_dir, learning_rate=0.0001)
 
 # Create checkpoint callback
 checkpoint_callback = CheckpointCallback(
