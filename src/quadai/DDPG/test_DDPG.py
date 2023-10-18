@@ -6,17 +6,17 @@ import os
 import gym
 import numpy as np
 import torch as th
-from stable_baselines3 import SAC
+from stable_baselines3 import DDPG
 
-from quadai.DDPG.env_DDPG import droneEnv
+from env_DDPG import droneEnv
 
-MODEL_PATH = "models/sac_model_v2_5000000_steps.zip"
+MODEL_PATH = "src/quadai/models/ddpg_v2_400000_steps.zip"
 
 # Create and wrap the environment
 env = droneEnv(True, False)
 
 # Load the trained agent
-model = SAC.load(MODEL_PATH, env=env)
+model = DDPG.load(MODEL_PATH, env=env)
 
 # Evaluate the agent
 for i in range(10):

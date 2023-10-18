@@ -31,7 +31,7 @@ model = DDPG("MlpPolicy", env, verbose=1, tensorboard_log=log_dir)
 
 # Create checkpoint callback
 checkpoint_callback = CheckpointCallback(
-    save_freq=100000, save_path=log_dir, name_prefix="rl_model_v2"
+    save_freq=100000, save_path=log_dir, name_prefix="ddpg_"
 )
 
 # Train the agent

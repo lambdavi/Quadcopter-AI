@@ -147,7 +147,7 @@ class DDPGPlayer(Player):
         self.alpha = 50
         self.thruster_amplitude = 0.04
         self.diff_amplitude = 0.003
-        model_path = ""
+        model_path = "models/ddpg_v2_1000000_steps.zip"
         model_path = os.path.join(os.path.dirname(__file__), model_path)
         self.path = model_path
         super().__init__()

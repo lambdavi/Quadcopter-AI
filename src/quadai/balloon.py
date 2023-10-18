@@ -15,6 +15,7 @@ import numpy as np
 import pygame
 from pygame.locals import *
 from quadai.player import HumanPlayer, PIDPlayer, SACPlayer
+from player import DDPGPlayer
 
 
 def correct_path(current_path):
@@ -150,7 +151,7 @@ def balloon():
     time_limit = 100
     respawn_timer_max = 3
 
-    players = [HumanPlayer(), PIDPlayer(), SACPlayer()]
+    players = [HumanPlayer(), PIDPlayer(), SACPlayer(), DDPGPlayer()]
 
     # Generate 100 targets
     targets = []
@@ -178,7 +179,6 @@ def balloon():
 
         time += 1 / 60
         step += 1
-
         # For each player
         for player_index, player in enumerate(players):
             if player.dead == False:
@@ -199,7 +199,7 @@ def balloon():
                             player.angular_speed,
                         ]
                     )
-                elif player.name == "SAC":
+                elif player.name == "SAC" or player.name=="DDPG":
                     angle_to_up = player.angle / 180 * pi
                     velocity = sqrt(player.x_speed**2 + player.y_speed**2)
                     angle_velocity = player.angular_speed
@@ -369,6 +369,8 @@ def balloon():
                 display_info(240)
             elif player_index == 3:
                 display_info(350)
+            else:
+                display_info(370)
 
             time_text = time_font.render(
                 "Time : " + str(int(time_limit - time)), True, (255, 255, 255)
@@ -392,3 +394,7 @@ def balloon():
 
     print("")
     print("Winner is : " + winner + " !")
+
+
+if __name__ == "__main__":
+    balloon()

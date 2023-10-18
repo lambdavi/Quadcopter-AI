@@ -11,14 +11,14 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 import wandb
 from wandb.integration.sb3 import WandbCallback
 
-from quadai.DDPG.env_DDPG import droneEnv
+from env_DDPG import droneEnv
 
 params = ["gamma", "learning_rate", "buffer_size", "tau", "batch_size"]
 gamma_range = []
-learning_rate_range = []
-buffer_size_range = [1, 500, 5000, 50000, 500000]
-tau_range = [0.00001, 0.001, 0.1, 0.5, 0.99]
-batch_size_range = [1, 32, 64, 128, 256]
+learning_rate_range = [1e-3, 1e-4, 5e-4, 1e-5, 1e-6]
+buffer_size_range = []
+tau_range = []
+batch_size_range = []
 ranges = [
     gamma_range,
     learning_rate_range,
@@ -92,7 +92,7 @@ for i in range(len(params)):
         # Train the agent
         model.learn(
             # CHANGE THIS TO 500000
-            total_timesteps=500000,
+            total_timesteps=10000,
             callback=[
                 checkpoint_callback,
                 WandbCallback(

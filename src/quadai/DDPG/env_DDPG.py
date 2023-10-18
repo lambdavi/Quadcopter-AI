@@ -178,6 +178,7 @@ class droneEnv(gym.Env):
                 self.xt = randrange(200, 600)
                 self.yt = randrange(200, 600)
                 self.reward += 100
+                self.target_counter+=1
 
             # If out of time
             if self.time > self.time_limit:
